@@ -1,0 +1,16 @@
+@page "/manage"
+@inherits ManagerBase
+
+<h1>Manage</h1>
+
+@foreach (var returnUrl in @Returns)
+{
+    @returnUrl
+    <button @onclick="() => RemoveReturn(returnUrl)">Remove</button>
+}
+
+<input type="text" @bind="NewReturn" />
+<button @onclick="AddReturn">Add</button>
+
+<input type="text" @bind="Secret" />
+<button @onclick="SaveSecret">Update Secret</button>

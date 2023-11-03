@@ -1,0 +1,12 @@
+@page "/register"
+@inherits RegisterBase
+
+<EditForm Model="@request" OnValidSubmit="@(async () => await HandleValidSubmit())">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <InputText id="uname" class="form-control" @bind-Value="request.Username" />
+    <InputText id="pword" class="form-control" @bind-Value="request.Password" />
+
+    <button type="submit">Register</button>
+</EditForm>

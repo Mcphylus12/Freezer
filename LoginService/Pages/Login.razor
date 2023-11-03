@@ -1,0 +1,13 @@
+@page "/login"
+@page "/"
+@inherits LoginBase
+
+<EditForm Model="@Request" OnValidSubmit="@(async () => await HandleValidSubmit())">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <InputText id="uname" class="form-control" @bind-Value="Request.Username" />
+    <InputText id="pword" class="form-control" @bind-Value="Request.Password" />
+
+    <button type="submit">Login</button>
+</EditForm>
