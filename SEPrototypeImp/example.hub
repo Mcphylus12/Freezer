@@ -1,0 +1,31 @@
+2016, 01-01-2016:12:00, 31-05-2016:12:00
+MODULE
+Mr Guy, CMP-5014A, Programming
+COURSEWORK
+Java 1, 10-05-2016:12:00, 27-03-2016:12:00, 15-04-2016:12:00, Mr Mark, hand in to hub, true, false, 25
+COURSEWORK
+C++ 1, 28-05-2016:12:00, 16-04-2016:12:00, 29-04-2016:12:00, Mr Fail, upload to blackboard, true, false, 25
+EXAMS
+Programming Exam, 120, CHALL, 04-05-2016:12:00, true, 50
+ENDMODULE
+
+MODULE
+Mr Other, CMP-5016B, Software
+COURSEWORK
+Software Design, 14-05-2016:12:00, 22-03-2016:12:00, 18-04-2016:12:00, Mrs Soft, hand in to hub, true, false, 10
+COURSEWORK
+Software Implementation, 14-05-2016:12:00, 22-03-2016:12:00, 18-04-2016:12:00, Mrs Soft, hand in to hub, true, false, 90
+ENDMODULE
+
+MODULE
+Mr Mod, CMP-5088Y, Databases
+COURSEWORK
+Database Dev, 12-05-2016:12:00, 15-01-2016:12:00, 17-03-2016:12:00, Mr Data, upload to blackboard, true, false, 30
+COURSETESTS
+Database Coursetest, www.ueaexams.com/databases, 20-05-2016:12:00, true, true, 30
+EXAMS
+Database Exam, 180, CHALL2, 07-05-2016:12:00, true, 40
+ENDMODULE
+
+
+

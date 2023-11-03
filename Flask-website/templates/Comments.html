@@ -1,0 +1,27 @@
+{% extends "baseFrame.html" %}
+{% block title %}Ongar Bell|Comments{% endblock %}
+{% block stylesheets %}<link rel="stylesheet" href="static/css/Comments.css" />{% endblock %}
+{% block content %}
+<div id="addComment">
+    {% if err %}<h1>Please make sure your comment has a body</h1>{% endif %}
+    <h2>Add a Comment</h2>
+    <form action="addComment" method="post">
+        <p>Name: </p><input id="namebox" type="text" name="uName"/>
+        <br />
+        <textarea id="textbox" rows="6" cols="50" name="uComment" ></textarea>
+        <br />
+        <input type="submit" value="Submit Comment" />
+        <input type="reset" value="Clear Comment" />
+    </form>
+</div>
+<div id="comments">
+    {% for comment in comList %}
+    <section>
+        <h4>posted on {{ comment[2] }} by {{ comment[0] }}</h4>
+        <p>
+            {{ comment[1] }}
+        </p>
+    </section>
+    {% endfor %}
+</div>
+{% endblock %}

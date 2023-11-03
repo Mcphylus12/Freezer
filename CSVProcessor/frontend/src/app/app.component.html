@@ -1,0 +1,6 @@
+<input type='file' accept='text/plain' multiple (change)='openFile($event)'>
+<button (click)='save()' *ngIf="data.length > 0">Save</button>
+<div *ngFor="let item of data">
+  {{ item }}
+  <br />
+</div>

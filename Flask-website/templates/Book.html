@@ -1,0 +1,142 @@
+{% extends "baseFrame.html" %}
+{% macro option(month) %}
+<option value="{{month}}">{{month}}</option>
+{% endmacro %}
+{% block title %}Ongar Bell|Book{% endblock %}
+{% block stylesheets %}<link rel="stylesheet" href="static/css/Book.css" />{% endblock %}
+{% block scripts %}
+<script src="static/js/jquery-1.6.2.min.js"></script>
+<script type="text/javascript">
+
+$(document).ready(function () {
+    'use strict';
+    var today = new Date();
+    fillTable(today.getMonth(), today.getFullYear());
+});
+
+function loadMonth(){
+    var month = document.getElementById('monthDropDown').selectedIndex;
+    var year = document.getElementById('yearDropDown').selectedIndex;
+    var today = new Date();
+    fillTable(month, today.getFullYear() + year);
+}
+
+function fillTable(month, year) {
+    'use strict';
+    var appendStr = '';
+    var bookedDates = [];
+    {% for booking in dateBook %}
+    var dates = '{{booking[0]}}'.split('/');
+    if(dates[2] == year && dates[1] == month+1){
+        dates.push({{ booking[1] }})
+        bookedDates.push(dates)
+    }
+    {% endfor %}
+    var months = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
+    var day = 1;
+    var startDay = new Date(year, month, 1).getDay();
+    var monthLength = new Date(year, month+1, 0).getDate();
+    var i;
+    $('#bookingTable').empty();
+    appendStr = appendStr.concat('<table>' +
+                             '<tr>' +
+                             '<td colspan="7">' +
+                             months[month] + ' ' + year +
+                             '</td></tr>'
+                             );
+
+    appendStr = appendStr.concat('<tr><td>Sun</td><td>Mon</td><td>Tue</td><td>Wed</td><td>Thu</td><td>Fri</td><td>Sat</td></tr>');
+
+    appendStr = appendStr.concat('<tr>');
+    for (i = 0; i < startDay; i++) {
+        appendStr = appendStr.concat('<td></td>');
+    }
+
+    for (i = startDay; i < 7; i++) {
+        var booked = false;
+        for (var j = 0; j < bookedDates.length; j++){
+            if (day >= bookedDates[j][0] && day <= parseInt(bookedDates[j][0])+parseInt(bookedDates[j][3])){
+                appendStr = appendStr.concat('<td class="booked"><p>' + day + '<br /></p></td>');
+                booked = true;
+                break;
+            }
+
+
+        }
+        if(booked == false){
+             appendStr = appendStr.concat('<td>' + day + '<br  /></td>');
+        }
+        day++;
+    }
+    appendStr = appendStr.concat('</tr>');
+
+    appendStr = appendStr.concat('<tr>');
+    while (day <= monthLength) {
+        for (i = 1; i <= 7 && day <= monthLength; i++) {
+            var booked = false;
+            for (var j = 0; j < bookedDates.length; j++){
+                if ((day >= bookedDates[j][0]) && day <= parseInt(bookedDates[j][0])+parseInt(bookedDates[j][3])){
+                    appendStr = appendStr.concat('<td class="booked"><p>' + day + '<br /></p></td>');
+                    booked = true;
+                    break;
+
+
+                }
+            }
+            if(booked == false){
+                appendStr = appendStr.concat('<td>' + day + '</td>');
+            }
+            day++;
+        }
+        appendStr = appendStr.concat('</tr><tr>');
+    }
+
+    appendStr = appendStr.concat('</tr>');
+
+    appendStr = appendStr.concat('</table><br />');
+
+    $('#bookingTable').html(appendStr);
+
+}
+
+</script>
+{% endblock %}
+{% block content %}
+<br /><br /><br /><br /><br />
+<p class="selectLabel">Select Month:</p>
+<select id="monthDropDown">
+    {{ option('January') }}
+    {{ option('February') }}
+    {{ option('March') }}
+    {{ option('April') }}
+    {{ option('May') }}
+    {{ option('June') }}
+    {{ option('July') }}
+    {{ option('August') }}
+    {{ option('September') }}
+    {{ option('October') }}
+    {{ option('November') }}
+    {{ option('December') }}
+</select>
+<p class="selectLabel">Select Year:</p>
+<select id="yearDropDown">
+    <option value="thisYear">This Year</option>
+    <option value="nextYear">Next Year</option>
+</select>
+<br />
+<button class="button" onclick="loadMonth()">View Month</button>
+<h2>Dates already booked</h2>
+<div id="bookingTable">
+</div>
+<h2>Request a Reservation</h2>
+<form action="processBooking" method="post">
+    Name:<br /><input type="text" name="name" /><br />
+    e-mail:<br /> <input type="text" name="email" /><br />
+    Date format : DD/MM/YYYY<br />
+    Start date:<br /><input type="text" name="startDateDay" class="datein" />/<input type="text" name="startDateMonth" class="datein" />/<input type="text" name="startDateYear" class="datein" /><br />
+    End date:<br /><input type="text" name="endDateDay" class="datein" />/<input type="text" name="endDateMonth" class="datein" />/<input type="text" name="endDateYear" class="datein" /><br />
+    <input type="submit" value="Submit request" class="button"/>
+    <input type="reset" value="Reset form" class="button" />
+</form>
+<img src="static/pics/3.jpg" />
+{% endblock %}
